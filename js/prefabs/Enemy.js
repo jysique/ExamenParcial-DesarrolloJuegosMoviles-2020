@@ -1,13 +1,14 @@
-Enemy = function(game){
+Enemy = function(game,sprite,velocity){
+    console.log(sprite);
+    Phaser.Sprite.call(this,game,0,0,sprite);
     this.game = game;
-    let key = this.game.rnd.integerInRange(0,2);
-    
     this.game.physics.arcade.enable(this);
-    let types = ["greenEnemy","whiteEnemy","boss"];
-    console.log(types[key]);
-    Phaser.Sprite.call(this,game,100,100,types[key]);
-    // this.animations.add('fly');
-    // this.animations.play('fly', [ 0, 1, 2 ], 20, true);
+    this.body.velocity.y = velocity;
+    this.anchor.setTo(0.5);
+    this.y = -this.height/2;
+    this.x = this.game.rnd.integerInRange(this.width/2, this.game.width - (this.width / 2));
+    this.animations.add('fly', [ 0, 1, 2 ], 20, true);
+    this.play("fly");
 }
 
 Enemy.prototype = Object.create(Phaser.Sprite.prototype);

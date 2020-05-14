@@ -291,7 +291,7 @@ Game.prototype = {
 		explosion.animations.play('boom',7,false,true);
 		this.explosionSound.play();
 	},
-
+/*
 	createEnemy:function(){
 		let types = ["greenEnemy","whiteEnemy","boss"];
 		let key = this.game.rnd.integerInRange(0,2);
@@ -316,7 +316,7 @@ Game.prototype = {
 		enemy.x = this.game.rnd.integerInRange(enemy.width/2,
 												this.game.width - (enemy.width / 2));
 	},
-
+*/
 	shoot:function(){
 		// console.log("hola");
 		let bullet = this.bullets.getFirstDead();
@@ -336,7 +336,24 @@ Game.prototype = {
 		bullet.body.velocity.y = -200; 	
 		bullet.checkWorldBounds = true;
 		bullet.outOfBoundsKill  = true;
+	},
+	createEnemy:function(){
+        let types = ["greenEnemy","whiteEnemy","boss"];
+        let key = this.game.rnd.integerInRange(0,2);
+        let enemy = this.enemies.getFirstDead();
+        if(enemy){
+            enemy.reset(0,-enemy.heigth/2);
+        }else{
+            enemy = new Enemy(this.game,types[key],200);
+            this.enemies.add(enemy);
+            /*enemy = this.add.sprite(0,0,types[key]);
+            enemy.anchor.setTo(0.5);
+            enemy.y = -enemy.height/2;
+            enemy.x = this.game.rnd.integerInRange(enemy.width/2, this.game.width - (enemy.width / 2));
+            this.game.physics.arcade.enable(enemy);
+            enemy.body.velocity.y = 200;
+            enemy.animations.add('fly', [ 0, 1, 2 ], 20, true);
+            enemy.play("fly");*/
+        }
 	}
-
-
 }
